@@ -44,4 +44,26 @@ Designed and verified on the **ZedBoard** using Xilinx Vivado and Integrated Log
 | `spi_clock`  | Output    | Gated SPI clock (10 MHz)             |
 | `spi_data`   | Output    | Serial data (MOSI)                   |
 
-## File Structure
+## Simulation & Hardware Testing
+
+### Simulation
+- Use Vivado Simulator or any Verilog simulator.
+- Drive `load_data` high with desired `data_in` value and observe `spi_clock` & `spi_data`.
+
+### Hardware Verification (ILA)
+1. Synthesize and implement the design.
+2. Insert ILA core and probe the following signals:
+   - `spi_clock`
+   - `spi_data`
+   - `load_data`
+   - `send_done`
+   - Internal state & bit counter (optional)
+3. Set trigger on rising edge of `load_data`.
+4. Capture and verify correct MSB-first bit sequence.
+
+## Results
+
+- Successfully verified bit-accurate transmission on hardware using Vivado ILA.
+- Achieved correct SPI timing: data launched on falling edge, sampled on rising edge.
+
+
