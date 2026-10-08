@@ -81,6 +81,14 @@ begin
                     state <= IDLE;
                 end
             end
+                default: begin
+                state     <= IDLE;
+                dataCount <= 3'd0;
+                CE        <= 1'b0;
+                done_send <= 1'b0;
+                spi_data  <= 1'b1;
+          
+            end
         endcase
     end
 end
