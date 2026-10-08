@@ -20,21 +20,20 @@ reg CE;
 
 assign spi_clock = (CE == 1) ? clock_10 : 1'b1;
 
-always @(posedge clock)
-begin
-    if(counter != 4)
-        counter <= counter + 1;
-    else
-        counter <= 0;
-end
-
-initial
-    clock_10 <= 0;
-
-always @(posedge clock)
-begin
-    if(counter == 4)
-        clock_10 <= ~clock_10;
+always @(posedge clock) begin
+    if (reset) begin
+        counter  <= 3'd0;
+        clock_10 <= 1'b0;
+    end
+    else begin
+        if (counter == 3'd4) begin
+            counter  <= 3'd0;
+            clock_10 <= ~clock_10;
+        end
+        else begin
+            counter <= counter + 1'b1;
+        end
+    end
 end
 
 localparam IDLE = 'd0,
